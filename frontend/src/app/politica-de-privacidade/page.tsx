@@ -10,10 +10,7 @@ export default function PrivacidadePage() {
         <div className="max-w-2xl">
           <h1 className="text-3xl md:text-4xl font-medium text-ink">Política de Privacidade</h1>
           <div className="mt-8 space-y-6 text-[15px] leading-relaxed text-ink-soft">
-            <p className="rounded-[var(--radius-md)] border border-[#F1E0B5] bg-[#FBF3E1] px-4 py-3 text-[14px] text-warning">
-              Conteúdo provisório — a rever por assessoria jurídica antes da publicação
-              definitiva.
-            </p>
+            
             <p>
               A ARSMART - Comércio Geral e Prestação de Serviços (SU), LDA ("ARSMART")
               respeita a privacidade dos utilizadores deste website. Esta política descreve,

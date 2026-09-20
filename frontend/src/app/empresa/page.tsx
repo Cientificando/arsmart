@@ -116,12 +116,37 @@ export default async function EmpresaPage() {
         <section className="py-16">
           <Container>
             <SectionHeader title="Equipa" />
-            <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {team.results.map((member: any) => (
-                <div key={member.id}>
-                  <h3 className="text-[15px] font-medium text-ink">{member.name}</h3>
-                  <p className="text-[13px] text-primary">{member.role}</p>
-                  {member.bio && <p className="mt-2 text-[13px] text-muted leading-relaxed">{member.bio}</p>}
+                <div key={member.id} className="flex flex-col gap-4">
+                  {member.photo ? (
+                    <div className="w-20 h-20 rounded-full overflow-hidden border border-border flex-shrink-0">
+                      <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
+                    </div>
+                  ) : (
+                    <div className="w-20 h-20 rounded-full bg-surface border border-border flex items-center justify-center flex-shrink-0">
+                      <span className="text-2xl font-medium text-primary">
+                        {member.name.charAt(0)}
+                      </span>
+                    </div>
+                  )}
+                  <div>
+                    <h3 className="text-[16px] font-medium text-ink">{member.name}</h3>
+                    <p className="text-[13px] text-primary font-medium mt-0.5">{member.role}</p>
+                    {member.bio && (
+                      <p className="mt-2 text-[14px] text-ink-soft leading-relaxed">{member.bio}</p>
+                    )}
+                    {member.linkedin_url && (
+                      <a
+                        href={member.linkedin_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 inline-flex items-center gap-1.5 text-[13px] text-muted hover:text-primary transition-colors"
+                      >
+                        LinkedIn →
+                      </a>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

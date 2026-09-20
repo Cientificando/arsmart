@@ -54,6 +54,7 @@ export default function Footer({ company }: { company: CompanyProfile | null }) 
           <p>
             © {year} {company?.legal_name || "ARSMART - Comércio Geral e Prestação de Serviços (SU), LDA"}
           </p>
+          <p>FEITO PELA CIENTIFICANDO</p>
           <p>NIF {company?.nif || "5002476959"}</p>
         </div>
       </Container>
