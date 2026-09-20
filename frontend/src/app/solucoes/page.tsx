@@ -30,7 +30,12 @@ export default async function SolucoesPage() {
             <div className="grid md:grid-cols-2 gap-6">
               {softwareList.results.map((sw: any) => (
                 <Link key={sw.id} href={`/solucoes/${sw.slug}`}>
-                  <Card className="h-full hover:border-primary transition-colors">
+                  <Card className="h-full hover:border-primary transition-colors flex flex-col">
+                    {sw.cover_image && (
+                      <div className="aspect-video rounded-[var(--radius-md)] overflow-hidden border border-border mb-4">
+                        <img src={sw.cover_image} alt={sw.name} className="w-full h-full object-cover" />
+                      </div>
+                    )}
                     {sw.category && <p className="text-[13px] text-primary font-medium">{sw.category}</p>}
                     <h2 className="mt-2 text-[20px] font-medium text-ink">{sw.name}</h2>
                     <p className="mt-2 text-[14px] leading-relaxed text-muted">{sw.short_description}</p>

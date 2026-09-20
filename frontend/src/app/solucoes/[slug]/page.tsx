@@ -33,6 +33,30 @@ export default async function SoftwareDetailPage({ params }: { params: Promise<{
           <p className="mt-6 text-[17px] leading-relaxed text-muted">{sw.full_description}</p>
         </div>
 
+        {sw.cover_image && (
+          <div className="mt-14 max-w-4xl">
+            <div className="aspect-video rounded-[var(--radius-lg)] overflow-hidden border border-border">
+              <img src={sw.cover_image} alt={`Capa do software ${sw.name}`} className="w-full h-full object-cover" />
+            </div>
+          </div>
+        )}
+
+        {sw.screenshots && sw.screenshots.length > 0 && (
+          <div className="mt-14 max-w-4xl">
+            <h2 className="text-[15px] font-medium text-ink mb-4">Screenshots</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {sw.screenshots.map((screenshot: any) => (
+                <div key={screenshot.id} className="aspect-video rounded-[var(--radius-lg)] overflow-hidden border border-border">
+                  <img src={screenshot.image} alt={screenshot.caption || sw.name} className="w-full h-full object-cover" />
+                  {screenshot.caption && (
+                    <p className="mt-2 text-[13px] text-muted text-center">{screenshot.caption}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="mt-14 grid md:grid-cols-2 gap-12 max-w-4xl">
           {sw.features_list.length > 0 && (
             <div>
