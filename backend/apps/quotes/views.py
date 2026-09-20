@@ -3,6 +3,8 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
+from apps.core.emails import confirm_quote_request_to_client, notify_new_quote_request
+
 from .models import QuoteRequest
 from .serializers import (
     QuoteRequestAdminSerializer,
@@ -26,6 +28,9 @@ class QuoteRequestPublicViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         instance = serializer.save()
+        # Envio de e-mails: notificação interna + confirmação ao cliente
+        notify_new_quote_request(instance)
+        confirm_quote_request_to_client(instance)
         return Response(
             {"reference": instance.reference, "message": "Pedido recebido com sucesso."},
             status=status.HTTP_201_CREATED,

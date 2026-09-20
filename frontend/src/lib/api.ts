@@ -100,11 +100,28 @@ export interface QuoteRequestPayload {
   privacy_consent: boolean;
 }
 
-export async function submitQuoteRequest(payload: QuoteRequestPayload) {
+export async function submitQuoteRequest(payload: QuoteRequestPayload, attachment?: File | null) {
+  const formData = new FormData();
+
+  // Campos textuais
+  (Object.keys(payload) as (keyof QuoteRequestPayload)[]).forEach((key) => {
+    const value = payload[key];
+    if (value !== undefined && value !== null && value !== "") {
+      formData.append(key, String(value));
+    }
+  });
+  // Forçar privacy_consent como "true"/"false" (booleano -> string)
+  formData.set("privacy_consent", payload.privacy_consent ? "true" : "false");
+
+  // Anexo (opcional)
+  if (attachment) {
+    formData.append("attachment", attachment);
+  }
+
   const res = await fetch(`${API_URL}/quote-requests/`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    body: formData,
+    // NÃO definir Content-Type — o browser faz isso automaticamente com o boundary correcto
   });
   const data = await res.json();
   if (!res.ok) {

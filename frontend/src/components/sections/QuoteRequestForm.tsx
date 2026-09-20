@@ -37,6 +37,7 @@ export default function QuoteRequestForm({
   const [reference, setReference] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [generalError, setGeneralError] = useState("");
+  const [attachment, setAttachment] = useState<File | null>(null);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -70,7 +71,7 @@ export default function QuoteRequestForm({
     }
 
     try {
-      const result = await submitQuoteRequest(payload);
+      const result = await submitQuoteRequest(payload, attachment);
       setReference(result.reference);
       setStatus("success");
     } catch (err) {
@@ -200,6 +201,27 @@ export default function QuoteRequestForm({
           <input id="deadline" name="deadline" className={inputClasses} />
         </FormField>
       </div>
+
+      <FormField
+        label="Anexo (opcional)"
+        htmlFor="attachment"
+        hint="PDF, Word, imagens — máx. 10 MB"
+        error={errors.attachment}
+      >
+        <input
+          id="attachment"
+          name="attachment"
+          type="file"
+          accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+          className={inputClasses + " file:mr-3 file:py-1 file:px-3 file:rounded-full file:border file:border-border file:text-[13px] file:bg-surface file:text-ink-soft hover:file:bg-ink hover:file:text-white file:transition-colors cursor-pointer"}
+          onChange={(e) => setAttachment(e.target.files?.[0] ?? null)}
+        />
+        {attachment && (
+          <p className="mt-1.5 text-[13px] text-primary">
+            {attachment.name} ({(attachment.size / 1024).toFixed(0)} KB)
+          </p>
+        )}
+      </FormField>
 
       <label className="flex items-start gap-3 text-[14px] text-ink-soft">
         <input type="checkbox" name="privacy_consent" required className="mt-1" />
