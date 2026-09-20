@@ -145,7 +145,7 @@ export default async function HomePage() {
               </div>
             </div>
             <div className="rounded-[var(--radius-lg)] bg-ink p-10 flex items-center justify-center min-h-[280px]">
-              <p className="text-white/30 text-[14px]">Imagem/screenshot do software</p>
+              <p className="text-white/30 text-[14px]">NEGOMIL - SOFTWARE DE GESTÃO</p>
             </div>
           </div>
         </Container>
